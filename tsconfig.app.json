@@ -22,7 +22,8 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     // added in TypeScript 4.1, this option enables strict checking of indexed access expressions, which can help catch potential runtime errors when accessing properties of objects using dynamic keys.
-    "noUncheckedIndexedAccess": true 
+    "noUncheckedIndexedAccess": true ,
+    "strict": true
   },
   "include": ["src"]
 }
