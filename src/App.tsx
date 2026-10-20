@@ -4,8 +4,7 @@ import { StatBadge } from './components/StatBadge'
 import { RepoCard } from './components/RepoCard'
 
 function App() {
-
-
+ 
   return (
     <>
       <header>

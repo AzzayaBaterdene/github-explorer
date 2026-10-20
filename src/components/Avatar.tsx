@@ -15,3 +15,4 @@ export function Avatar({ src, alt, size = 100 }: AvatarProps) {
         />
     )
 }
+
