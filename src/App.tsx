@@ -28,8 +28,8 @@ function App() {
         {/* Step 4: Avatar, StatBadge and RepoCard demos go here */}
         <p>Search for a user to get started.</p>
         <Avatar src="https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg" alt="John Doe" size={250} />
-        <StatBadge label="Followers" value={123} />
-        <StatBadge label="Following" value={456} />
+        <StatBadge label="Followers" value={999999} />
+        <StatBadge label="Following" value={45632} />
         <RepoCard name="example-repo" description="This is an example repository." language="TypeScript" stars={42} forks={10} />
       </main>
 
