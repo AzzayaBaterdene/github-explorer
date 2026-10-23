@@ -13,8 +13,8 @@ const user: GitHubUser = userJson;
 const repos: Repo[] = reposJson;
 
 type ReposJsonType = typeof reposJson;
-type UserJsonType = typeof userJson;  // It checked that this inferred type fits into Repo[]. It does.
-type D = ReposJsonType[number]["description"]; // A trick to ask for exactly one field
+// type UserJsonType = typeof userJson;  // It checked that this inferred type fits into Repo[]. It does.
+// type D = ReposJsonType[number]["description"]; // A trick to ask for exactly one field
 
 function App() {
   return (
@@ -39,18 +39,14 @@ function App() {
 
       <main>
         {/* Step 4: Avatar, StatBadge and RepoCard demos go here */}
-        <p>Search for a user to get started.</p>
-        <Avatar src="https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg" alt="John Doe" size={250} />
-        <StatBadge label="Followers" value={999999} />
-        <StatBadge label="Following" value={45632} />
          <Card title='Profile'>
           <ProfileCard user={user}/>
         </Card>
-      </main>
-        <Card title='Profile'>
-          <RepoCard name="example-repo" description="This is an example repository." language="TypeScript" stars={42} forks={10} />
+        <Card title='Repositories'>
+          {repos[0] && <RepoCard repo={repos[0]} /> }
         </Card>
-      x
+      </main>
+        
       <footer>
         <p>
           Data from the{" "}
