@@ -100,7 +100,7 @@ export function timeAgo(dateString: string, now: Date = new Date()): string {
 // Improved version
 import type { LanguageBytes } from "./github-types";
 
-export type LanguageShares = { language: string; percent: number }
+export type LanguageShares = { language: string; percent: number } // return type of languagePercentages
 
 export function languagePercentages(languageBytes: LanguageBytes): LanguageShares[] {
     const entries = Object.entries(languageBytes); 
@@ -126,7 +126,6 @@ export function languagePercentages(languageBytes: LanguageBytes): LanguageShare
 };
 
 console.log(languagePercentages({A: 0}))
-
 
 
 // The Rules of Thumb

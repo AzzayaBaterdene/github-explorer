@@ -25,5 +25,5 @@
     "noUncheckedIndexedAccess": true ,
     "strict": true
   },
-  "include": ["src"]
+  "include": ["src", "practises/Day3/RenderTest.tsx"]
 }

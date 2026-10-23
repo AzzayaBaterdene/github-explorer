@@ -2,6 +2,7 @@ import './App.css'
 import { Avatar } from './components/Avatar'
 import { StatBadge } from './components/StatBadge'
 import { RepoCard } from './components/RepoCard'
+import RenderTest from '../practises/Day3/RenderTest'
 
 function App() {
  
@@ -43,6 +44,11 @@ function App() {
       </footer>
     </>
   )
+
+  // For test purpose!!
+  // return (
+  //   <RenderTest/>
+  // )
 }
 
 export default App
