@@ -2,10 +2,12 @@ import './App.css'
 import { Avatar } from './components/Avatar'
 import { StatBadge } from './components/StatBadge'
 import { RepoCard } from './components/RepoCard'
+import { Card } from './components/Card'
 // import RenderTest from '../practises/Day3/RenderTest'
 import userJson from "./fixtures/user.json";
 import reposJson from "./fixtures/repos.json";
 import type { GitHubUser, Repo } from "./lib/github-types";
+import { ProfileCard } from './components/ProfileCard'
 
 const user: GitHubUser = userJson;
 const repos: Repo[] = reposJson;
@@ -41,9 +43,14 @@ function App() {
         <Avatar src="https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg" alt="John Doe" size={250} />
         <StatBadge label="Followers" value={999999} />
         <StatBadge label="Following" value={45632} />
-        <RepoCard name="example-repo" description="This is an example repository." language="TypeScript" stars={42} forks={10} />
+         <Card title='Profile'>
+          <ProfileCard user={user}/>
+        </Card>
       </main>
-
+        <Card title='Profile'>
+          <RepoCard name="example-repo" description="This is an example repository." language="TypeScript" stars={42} forks={10} />
+        </Card>
+      x
       <footer>
         <p>
           Data from the{" "}
