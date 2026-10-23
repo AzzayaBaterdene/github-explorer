@@ -2,14 +2,24 @@ import './App.css'
 import { Avatar } from './components/Avatar'
 import { StatBadge } from './components/StatBadge'
 import { RepoCard } from './components/RepoCard'
-import RenderTest from '../practises/Day3/RenderTest'
+// import RenderTest from '../practises/Day3/RenderTest'
+import userJson from "./fixtures/user.json";
+import reposJson from "./fixtures/repos.json";
+import type { GitHubUser, Repo } from "./lib/github-types";
+
+const user: GitHubUser = userJson;
+const repos: Repo[] = reposJson;
+
+type ReposJsonType = typeof reposJson;
+type UserJsonType = typeof userJson;  // It checked that this inferred type fits into Repo[]. It does.
+type D = ReposJsonType[number]["description"]; // A trick to ask for exactly one field
 
 function App() {
- 
   return (
     <>
       <header>
         <h1>GitHub Explorer by Azzaya</h1>
+        <b><p>{user.login} has {repos.length} repos in the fixture</p></b>
         <form role="search" onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="user-search" className="visually-hidden">
             GitHub username
