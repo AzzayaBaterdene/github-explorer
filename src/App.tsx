@@ -8,9 +8,11 @@ import userJson from "./fixtures/user.json";
 import reposJson from "./fixtures/repos.json";
 import type { GitHubUser, Repo } from "./lib/github-types";
 import { ProfileCard } from './components/ProfileCard'
+import { RepoList } from './components/RepoList'
 
 const user: GitHubUser = userJson;
 const repos: Repo[] = reposJson;
+const reposTest: Repo[] = [];
 
 type ReposJsonType = typeof reposJson;
 // type UserJsonType = typeof userJson;  // It checked that this inferred type fits into Repo[]. It does.
@@ -42,8 +44,10 @@ function App() {
          <Card title='Profile'>
           <ProfileCard user={user}/>
         </Card>
-        <Card title='Repositories'>
-          {repos[0] && <RepoCard repo={repos[0]} /> }
+        <Card title={`Repositories (${repos.length})`}>
+          {/* {repos[0] && <RepoCard repo={repos[0]} /> } */}
+          <RepoList repos={reposTest}/>
+          {/* <RepoList repos={repos}/> */}
         </Card>
       </main>
         

@@ -134,5 +134,5 @@ console.log(languagePercentages({A: 0}))
 // • Convert it to an Array when you need to loop, count, filter, sort, or modify the dataset as a whole.
 
 
-console.log(languagePercentages( { TypeScript: 6, CSS: 3, HTML: 1, Shell: 1 }))
+// console.log(languagePercentages( { TypeScript: 6, CSS: 3, HTML: 1, Shell: 1 }))
 
