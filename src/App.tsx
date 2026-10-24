@@ -1,15 +1,29 @@
 import './App.css'
-import { Avatar } from './components/Avatar'
-import { StatBadge } from './components/StatBadge'
-import { RepoCard } from './components/RepoCard'
-import RenderTest from '../practises/Day3/RenderTest'
+// import { Avatar } from './components/Avatar'
+// import { StatBadge } from './components/StatBadge'
+// import { RepoCard } from './components/RepoCard'
+import { Card } from './components/Card'
+// import RenderTest from '../practises/Day3/RenderTest'
+import userJson from "./fixtures/user.json";
+import reposJson from "./fixtures/repos.json";
+import type { GitHubUser, Repo } from "./lib/github-types";
+import { ProfileCard } from './components/ProfileCard'
+import { RepoList } from './components/RepoList'
+
+const user: GitHubUser = userJson;
+const repos: Repo[] = reposJson;
+// const reposTest: Repo[] = [];
+
+// type ReposJsonType = typeof reposJson;
+// type UserJsonType = typeof userJson;  // It checked that this inferred type fits into Repo[]. It does.
+// type D = ReposJsonType[number]["description"]; // A trick to ask for exactly one field
 
 function App() {
- 
   return (
     <>
       <header>
         <h1>GitHub Explorer by Azzaya</h1>
+        <b><p>{user.login} has {repos.length} repos in the fixture</p></b>
         <form role="search" onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="user-search" className="visually-hidden">
             GitHub username
@@ -27,13 +41,16 @@ function App() {
 
       <main>
         {/* Step 4: Avatar, StatBadge and RepoCard demos go here */}
-        <p>Search for a user to get started.</p>
-        <Avatar src="https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg" alt="John Doe" size={250} />
-        <StatBadge label="Followers" value={999999} />
-        <StatBadge label="Following" value={45632} />
-        <RepoCard name="example-repo" description="This is an example repository." language="TypeScript" stars={42} forks={10} />
+         <Card title='Profile'>
+          <ProfileCard user={user}/>
+        </Card>
+        <Card title={`Repositories (${repos.length})`}>
+          {/* {repos[0] && <RepoCard repo={repos[0]} /> } */}
+          {/* <RepoList repos={reposTest}/> */}
+          <RepoList repos={repos}/>
+        </Card>
       </main>
-
+        
       <footer>
         <p>
           Data from the{" "}

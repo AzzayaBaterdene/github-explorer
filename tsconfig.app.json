@@ -23,7 +23,9 @@
     "noFallthroughCasesInSwitch": true,
     // added in TypeScript 4.1, this option enables strict checking of indexed access expressions, which can help catch potential runtime errors when accessing properties of objects using dynamic keys.
     "noUncheckedIndexedAccess": true ,
-    "strict": true
+    "strict": true, 
+    "resolveJsonModule": true
+
   },
   "include": ["src", "practises/Day3/RenderTest.tsx"]
 }

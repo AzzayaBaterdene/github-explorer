@@ -40,7 +40,7 @@ describe("timeAgo", () => {
     ["2026-08-20T12:00:00Z", "2 months ago"],
     ["2024-10-20T12:00:00Z", "2 years ago"],
     ["2026-10-23T12:00:00Z", "in 3 days"],
-    ])("%s → %s", (date, expected) => { // test each case with the fixed "now" date
+    ])("%s → %s", (date, expected) => { 
     expect(timeAgo(date, now)).toBe(expected);
   });
 

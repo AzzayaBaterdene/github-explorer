@@ -16,6 +16,7 @@ export type Repo = {
     description: string | null;
     language: string | null;
     fork: boolean;
+    forks_count: number;
     stargazers_count: number;
     updated_at: string;
     html_url: string;

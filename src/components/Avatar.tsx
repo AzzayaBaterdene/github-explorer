@@ -1,5 +1,5 @@
 type AvatarProps = {
-    src: string,
+    src?: string ,
     alt: string,
     size?: number,
 }
@@ -7,6 +7,7 @@ type AvatarProps = {
 export function Avatar({ src, alt, size = 100 }: AvatarProps) {
     return (
         <img
+            className="avatar"
             src={src}
             alt={alt}
             width={size}

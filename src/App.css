@@ -9,3 +9,13 @@
   white-space: nowrap;
   border: 0;
 }
+
+.card { border: 1px solid #d0d7de; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.card-header h2 { margin: 0; font-size: 1.1rem; }
+
+.repo-card { padding: 12px 0; border-bottom: 1px solid #d0d7de; }
+.repo-card__name { margin: 0 0 4px; font-size: 1rem; }
+.repo-card__stats { display: flex; gap: 16px; font-size: 0.85rem; color: #57606a; }
+.repo-card__dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; }
+.muted { color: #6e7781; font-style: italic; }
