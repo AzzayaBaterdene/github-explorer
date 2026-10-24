@@ -1,7 +1,7 @@
 import './App.css'
-import { Avatar } from './components/Avatar'
-import { StatBadge } from './components/StatBadge'
-import { RepoCard } from './components/RepoCard'
+// import { Avatar } from './components/Avatar'
+// import { StatBadge } from './components/StatBadge'
+// import { RepoCard } from './components/RepoCard'
 import { Card } from './components/Card'
 // import RenderTest from '../practises/Day3/RenderTest'
 import userJson from "./fixtures/user.json";
@@ -12,9 +12,9 @@ import { RepoList } from './components/RepoList'
 
 const user: GitHubUser = userJson;
 const repos: Repo[] = reposJson;
-const reposTest: Repo[] = [];
+// const reposTest: Repo[] = [];
 
-type ReposJsonType = typeof reposJson;
+// type ReposJsonType = typeof reposJson;
 // type UserJsonType = typeof userJson;  // It checked that this inferred type fits into Repo[]. It does.
 // type D = ReposJsonType[number]["description"]; // A trick to ask for exactly one field
 
@@ -46,8 +46,8 @@ function App() {
         </Card>
         <Card title={`Repositories (${repos.length})`}>
           {/* {repos[0] && <RepoCard repo={repos[0]} /> } */}
-          <RepoList repos={reposTest}/>
-          {/* <RepoList repos={repos}/> */}
+          {/* <RepoList repos={reposTest}/> */}
+          <RepoList repos={repos}/>
         </Card>
       </main>
         
