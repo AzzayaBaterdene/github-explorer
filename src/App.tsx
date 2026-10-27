@@ -5,11 +5,12 @@ import { ProfileCard } from "./components/ProfileCard";
 import { RepoList } from "./components/RepoList";
 import { SearchForm } from "./components/SearchForm";
 import { FIXTURES } from "./fixtures";
+import { RepoBrowser } from "./components/RepoBrowser";
 // import { ColorPicker } from "./components/ColorPicker";
 
 function App() {
   const [login, setLogin] = useState("octocat");
-//   const [theme, setTheme] = useState("none");
+  //   const [theme, setTheme] = useState("none");
 
   const profile = FIXTURES[login]; // Profile | undefined
 
@@ -27,23 +28,39 @@ function App() {
           <>
             <Card
               title="Profile"
-              action={<a href={profile.user.html_url} target="_blank" rel="noreferrer">View on GitHub</a>}
+              action={
+                <a
+                  href={profile.user.html_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View on GitHub
+                </a>
+              }
             >
               <ProfileCard user={profile.user} />
             </Card>
-            <Card title={`Repositories (${profile.repos.length})`}>
-              <RepoList repos={profile.repos} />
+            <Card title="Repositories">
+              <RepoBrowser key={login} repos={profile.repos} />
             </Card>
           </>
         ) : (
-          <p className="muted">No fixture data for “{login}”. Try octocat or gaearon.</p>
+          <p className="muted">
+            No fixture data for “{login}”. Try octocat or gaearon.
+          </p>
         )}
       </main>
 
       <footer>
         <p>
           Data from the{" "}
-          <a href="https://docs.github.com/en/rest" target="_blank" rel="noreferrer">GitHub REST API</a>
+          <a
+            href="https://docs.github.com/en/rest"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub REST API
+          </a>
         </p>
       </footer>
     </>
