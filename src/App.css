@@ -19,3 +19,7 @@
 .repo-card__stats { display: flex; gap: 16px; font-size: 0.85rem; color: #57606a; }
 .repo-card__dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; }
 .muted { color: #6e7781; font-style: italic; }
+
+.repo-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-bottom: 12px; }
+.repo-toolbar label { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; }
+.repo-toolbar label:has(input[type="checkbox"]) { flex-direction: row; align-items: center; }
