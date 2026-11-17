@@ -1,16 +1,18 @@
+import type { FiltersAction } from "../lib/filtersReducer";
 import type { RepoFilters } from "../lib/repoFilters";
 import { SORTS, SORT_LABELS, isSort } from "../lib/sorts";
 
 type RepoToolbarProps = {
   filters: RepoFilters;
   languages: string[];
-  onChange: (next: RepoFilters) => void;
+  // onChange: (next: RepoFilters) => void;
+  onAction: (action: FiltersAction) => void;
 };
 
 export function RepoToolbar({
   filters,
   languages,
-  onChange,
+  onAction,
 }: RepoToolbarProps) {
   return (
     <div className="repo-toolbar">
@@ -20,7 +22,9 @@ export function RepoToolbar({
           type="search"
           placeholder="Name or description"
           value={filters.query}
-          onChange={(e) => onChange({ ...filters, query: e.target.value })}
+          onChange={(e) =>
+            onAction({ type: "queryChanged", query: e.target.value })
+          }
         />
       </label>
       <label>
@@ -28,8 +32,8 @@ export function RepoToolbar({
         <select
           value={filters.language ?? ""}
           onChange={(e) =>
-            onChange({
-              ...filters,
+            onAction({
+              type: "languagePicked",
               language: e.target.value === "" ? null : e.target.value,
             })
           }
@@ -48,7 +52,7 @@ export function RepoToolbar({
           value={filters.sort}
           onChange={(e) => {
             const value = e.target.value; // string
-            if (isSort(value)) onChange({ ...filters, sort: value }); // value: Sort
+            if (isSort(value)) onAction({ type: "sortChanged", sort: value }); // value: Sort
           }}
         >
           {SORTS.map((sort) => (
@@ -63,11 +67,31 @@ export function RepoToolbar({
           type="checkbox"
           checked={filters.excludeForks}
           onChange={(e) =>
-            onChange({ ...filters, excludeForks: e.target.checked })
+            onAction({
+              type: "excludeForksChanged",
+              excludeForks: e.target.checked,
+            })
           }
         />
         Exclude forks
       </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={filters.favouritesOnly}
+          onChange={(e) =>
+            onAction({
+              type: "favouritesOnlyChanged",
+              favouritesOnly: e.target.checked,
+            })
+          }
+        />
+        Favourites only
+      </label>
+
+      <button type="button" onClick={() => onAction({ type: "cleared" })}>
+        Clear
+      </button>
     </div>
   );
 }

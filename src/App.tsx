@@ -1,54 +1,26 @@
 import "./App.css";
 import { useState } from "react";
-import { Card } from "./components/Card";
-import { ProfileCard } from "./components/ProfileCard";
-import { RepoList } from "./components/RepoList";
 import { SearchForm } from "./components/SearchForm";
-import { FIXTURES } from "./fixtures";
-import { RepoBrowser } from "./components/RepoBrowser";
-// import { ColorPicker } from "./components/ColorPicker";
+import { UserPage } from "./components/UserPage";
+import { MOCKS_ENABLED } from "./mocks/flag";
 
 function App() {
   const [login, setLogin] = useState("octocat");
-  //   const [theme, setTheme] = useState("none");
-
-  const profile = FIXTURES[login]; // Profile | undefined
 
   return (
     <>
       <header>
         <h1>GitHub Explorer by Azzaya</h1>
         <SearchForm onSearch={(value) => setLogin(value.toLowerCase())} />
-        {/* <ColorPicker onPick={(chosen) => setTheme(`${chosen}!`)}/> */}
-        {/* <p>{theme}</p> */}
+        {MOCKS_ENABLED && <span className="mock-badge">Mock data</span>}
       </header>
 
       <main>
-        {profile ? (
-          <>
-            <Card
-              title="Profile"
-              action={
-                <a
-                  href={profile.user.html_url}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View on GitHub
-                </a>
-              }
-            >
-              <ProfileCard user={profile.user} />
-            </Card>
-            <Card title="Repositories">
-              <RepoBrowser key={login} repos={profile.repos} />
-            </Card>
-          </>
-        ) : (
-          <p className="muted">
-            No fixture data for “{login}”. Try octocat or gaearon.
-          </p>
-        )}
+        {/* Decision: key={login}, so each user gets a fresh UserPage.
+            Wanted: a new user starts with no filters and in "loading", and the previous
+            user's profile can't show for even one frame. Trade-off: everything inside
+            resets, including filters, which is what I want when the user changes. */}
+        <UserPage key={login} login={login} />
       </main>
 
       <footer>

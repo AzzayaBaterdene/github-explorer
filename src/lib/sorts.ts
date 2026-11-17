@@ -1,7 +1,7 @@
 // as const 
 // 1. keeps the exact words ("updated", not just string)
 // 2. makes the array readonly: it can’t be changed
-export const SORTS = ["updated", "stars", "name"] as const;  // a real array
+export const SORTS = ["updated", "stars", "name"] as const;  // a real array, array methods can be used
 export type Sort = (typeof SORTS)[number];   // This line creates a type from a value, Sort ends up as the union 
 
 export const SORT_LABELS: Record<Sort, string> = {

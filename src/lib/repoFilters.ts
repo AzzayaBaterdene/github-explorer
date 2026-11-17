@@ -16,10 +16,11 @@ import type { Sort } from "./sorts";
 // no argument-order mistakes; the same type is used by state,
 // toolbar, this function and the tests).
 export type RepoFilters = {
-  query: string;           // empty search = "" (not missing)
+  query: string; // empty search = "" (not missing)
   language: string | null; // null = "All languages" (not a magic "all" string)
-  sort: Sort;              // only the 3 sort words; typos impossible
-  excludeForks: boolean;   // on or off
+  sort: Sort; // only the 3 sort words; typos impossible
+  excludeForks: boolean; // on or off
+  favouritesOnly: boolean; // on → only repos whose id is in favouriteIds
 };
 
 // ── SORT RULES: a table, not if/else ─────────────────────────
@@ -46,7 +47,11 @@ const COMPARE: Record<Sort, (a: Repo, b: Repo) => number> = {
 // ── MAIN FUNCTION ────────────────────────────────────────────
 // Pure: no React, no state, no network. Same input → same output → easy to test.
 // Always returns an array (maybe []), never null, so callers don't need checks.
-export function filterAndSortRepos(repos: Repo[], filters: RepoFilters): Repo[] {
+export function filterAndSortRepos(
+  repos: Repo[],
+  filters: RepoFilters,
+  favouriteIds: number[],
+): Repo[] {
   // Clean the search text ONCE (it's the same for every repo).
   // "  HELLO " → "hello"   (trim: accidental spaces; lowercase: case-insensitive)
   // "   "      → ""        (only spaces counts as empty)
@@ -59,6 +64,8 @@ export function filterAndSortRepos(repos: Repo[], filters: RepoFilters): Repo[] 
     // GATE 1 · excludeForks (cheapest check first: two booleans)
     // "If hiding forks AND it's a fork → out."
     // Checkbox off → skipped. Uses `fork` (is it a fork?), NOT forks_count.
+    // if (filters.excludeForks && repo.fork)   // "is this a reason to drop it?" → yes
+    // return false;                          // → "keep it?" → no
     if (filters.excludeForks && repo.fork) return false;
 
     // GATE 2 · language
@@ -66,10 +73,16 @@ export function filterAndSortRepos(repos: Repo[], filters: RepoFilters): Repo[] 
     // null (All) → skipped, every repo passes.
     // Repo with language null while "Ruby" is chosen → out (correct: not Ruby).
     // `!== null` says exactly what "no choice" means (clearer than a truthy check).
-    if (filters.language !== null && repo.language !== filters.language) return false;
+    if (filters.language !== null && repo.language !== filters.language)
+      return false;
 
-    // GATE 3 · empty search
-    // Nothing typed → keep (it already passed gates 1 and 2).
+    // GATE 3 · favourites only
+    // If the favourites-only toggle is on, drop any repo that is not in the
+    // user's favourites list. Only matching favourites should remain.
+    if (filters.favouritesOnly && !favouriteIds.includes(repo.id)) return false;
+
+    // GATE 4 · empty search
+    // Nothing typed → keep (it already passed gates 1 and 2 and 3).
     // States the intent and skips the string work below.
     if (query === "") return true;
 
@@ -81,7 +94,7 @@ export function filterAndSortRepos(repos: Repo[], filters: RepoFilters): Repo[] 
     const name = repo.name.toLowerCase();
     const description = (repo.description ?? "").toLowerCase();
 
-    // GATE 4 · text match
+    // GATE 5 · text match
     // Keep if the name OR the description contains the search (the spec says both).
     // Between gates = AND; inside this gate = OR.
     // includes finds the text anywhere: "world" matches "hello-world".
@@ -112,3 +125,6 @@ export function languageOptions(repos: Repo[]): string[] {
   // localeCompare = proper alphabetical order; toSorted = a new array.
   return [...languages].toSorted((a, b) => a.localeCompare(b));
 }
+
+// FiltersState : lists of everything the user can do to the toolbar
+// type a search, pick a language, change the sort, toggle forks, clear everything
