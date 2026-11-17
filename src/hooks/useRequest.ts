@@ -2,7 +2,7 @@
 // Runs one request for a login and returns its state: loading → success | error.
 // Written once, used for both the profile and the repos.
 
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import type { RequestState } from "../lib/github-types";
 import { initialRequestState, requestReducer } from "../lib/requestReducer";
 

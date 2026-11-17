@@ -13,11 +13,12 @@ export function RepoList({
   onToggleFavourite,
 }: RepoListProps) {
   if (repos.length === 0) {
-    return <p className="muted">No repositories found.</p>;
+    return <p className="text-muted">No repositories found.</p>;
   }
 
   return (
-    <ul className="repo-list">
+    // The list owns the separators between cards, the same rule as spacing
+    <ul className="divide-y divide-border">
       {repos.map((repo) => (
         <li key={repo.id}>
           <RepoCard
