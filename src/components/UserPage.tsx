@@ -19,6 +19,7 @@ type UserPageProps = {
 // not both added together. Two RequestStates, because they can be in different states.
 export function UserPage({ login }: UserPageProps) {
   const [favouriteIds, setFavouriteIds] = useState<number[]>([]);
+  const favouriteCount = favouriteIds.length;
 
   function toggleFavourite(id: number) {
     setFavouriteIds((prev) =>
@@ -40,7 +41,7 @@ export function UserPage({ login }: UserPageProps) {
       <ProfileSection
         state={profile}
         login={login}
-        favouriteIds={favouriteIds}
+        favouriteCount={favouriteCount}
       />
       {!userMissing && (
         <ReposSection
@@ -57,19 +58,19 @@ export function UserPage({ login }: UserPageProps) {
 type SectionProps<T> = {
   state: RequestState<T>;
   login: string;
-  favouriteIds: number[];
 };
 
 // A & B
+type ProfileSectionProps = SectionProps<GitHubUser> & {
+  favouriteCount: number;
+};
+
 type ReposSectionProps = SectionProps<Repo[]> & {
+  favouriteIds: number[];
   onToggleFavourite: (id: number) => void;
 };
 
-function ProfileSection({
-  state,
-  login,
-  favouriteIds,
-}: SectionProps<GitHubUser>) {
+function ProfileSection({ state, login, favouriteCount }: ProfileSectionProps) {
   switch (state.status) {
     case "idle":
     case "loading":
@@ -89,7 +90,7 @@ function ProfileSection({
             </a>
           }
         >
-          <ProfileCard user={state.data} favouriteIds={favouriteIds} />
+          <ProfileCard user={state.data} favouriteCount={favouriteCount} />
         </Card>
       );
 

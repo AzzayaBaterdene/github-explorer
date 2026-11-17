@@ -2,11 +2,9 @@ import { Avatar } from "./Avatar";
 import { StatBadge } from "./StatBadge";
 import type { GitHubUser } from "../lib/github-types";
 
-type ProfileCardProps = { user: GitHubUser; favouriteIds: number[] };
+type ProfileCardProps = { user: GitHubUser; favouriteCount: number };
 
-export function ProfileCard({ user, favouriteIds }: ProfileCardProps) {
-  const countFavouriteIds = favouriteIds.length;
-  console.log("countFavouriteIds in Profile card", countFavouriteIds);
+export function ProfileCard({ user, favouriteCount }: ProfileCardProps) {
   return (
     <div className="profile-card">
       <Avatar src={user.avatar_url} alt={`${user.login}'s avatar`} />
@@ -20,8 +18,8 @@ export function ProfileCard({ user, favouriteIds }: ProfileCardProps) {
         <StatBadge label="Following" value={user.following} />{" "}
         {/* ← was missing */}
         <StatBadge label="Public repos" value={user.public_repos} />
-        {countFavouriteIds !== 0 ? (
-          <StatBadge label="Favourites" value={countFavouriteIds} />
+        {favouriteCount !== 0 ? (
+          <StatBadge label="Favourites" value={favouriteCount} />
         ) : undefined}
       </div>
     </div>
