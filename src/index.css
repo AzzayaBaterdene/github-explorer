@@ -1,12 +1,50 @@
-/* Dark text on amber: contrast ratio about 10:1, well above 4.5 */
-.mock-badge {
-  display: inline-block;
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.25rem;
-  background: #fbbf24; /* amber */
-  color: #1f2937; /* near-black */
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+@import "tailwindcss";
+
+/* ── Design tokens ─────────────────────────────────────────────
+   One source of truth for colours, corners and fonts.
+   Tailwind turns each into utilities (--color-muted → text-muted, bg-muted…),
+   and they stay plain CSS variables (var(--color-muted)).
+   Names describe MEANING, not appearance, so on Day 10 dark mode only
+   overrides these values; no component changes.
+   Contrast checked (WCAG AA): text colours ≥ 4.5:1 on bg AND surface,
+   control borders ≥ 3:1. */
+@theme {
+  /* Surfaces */
+  --color-bg: #f7f8fa; /* page background */
+  --color-surface: #ffffff; /* cards, inputs */
+
+  /* Text: ratio on bg / surface */
+  --color-text: #1b2230; /* 15.0 / 15.9 */
+  --color-muted: #5b6475; /*  5.6 /  6.0  secondary text ("Showing 8 of 30") */
+
+  /* Lines */
+  --color-border: #d9dde4; /* decorative dividers only, not form controls */
+  --color-control: #7a8394; /*  3.6 /  3.8  input/select/checkbox borders (need ≥ 3:1) */
+
+  /* Meaning */
+  --color-accent: #2f5bd3; /*  5.6 /  5.9  links, primary button, focus ring */
+  --color-accent-hover: #2549b0; /* primary button hover (white on it: 7.9) */
+  --color-danger: #b4372f; /*  5.6 /  6.0  error messages */
+  --color-warning: #8a5300; /* text and border on warning-soft: 5.6; ★ on surface: 6.3 */
+  --color-warning-soft: #fdf0d5; /* warning background (Mock data badge) */
+
+  /* Shape and type */
+  --radius-card: 0.75rem;
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ── Base styles for the whole app ─────────────────────────── */
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+  }
+
+  /* One focus ring for every focusable element, defined once.
+     :focus-visible shows it for keyboard focus, not for mouse clicks on buttons. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
 }

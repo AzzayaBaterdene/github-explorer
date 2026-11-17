@@ -36,8 +36,12 @@ export function UserPage({ login }: UserPageProps) {
     profile.error instanceof GitHubError &&
     profile.error.kind === "not_found";
 
+  const layout = userMissing
+    ? "grid gap-6"
+    : "grid gap-6 md:grid-cols-[16rem_minmax(0,1fr)] md:items-start";
+
   return (
-    <>
+    <div className={layout}>
       <ProfileSection
         state={profile}
         login={login}
@@ -51,7 +55,7 @@ export function UserPage({ login }: UserPageProps) {
           onToggleFavourite={toggleFavourite}
         />
       )}
-    </>
+    </div>
   );
 }
 
